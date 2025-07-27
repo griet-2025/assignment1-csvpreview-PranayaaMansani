@@ -7,12 +7,11 @@ import java.io.IOException;
 public class CSVReaderPreview {
 
     public static void main(String[] args) {
-        // TO DO: Write your code below 
-        String filePath = "dataset/dataset.csv";
+        String path = "dataset/dataset.csv";
         String line = "";
-        String delimiter = ",";
+        String deli = ",";
 
-        try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
+        try (BufferedReader br = new BufferedReader(new FileReader(path))) {
            
             String headerLine = br.readLine();
             if (headerLine == null) {
@@ -20,28 +19,28 @@ public class CSVReaderPreview {
                 return;
             }
             System.out.println("=== Data Preview ===\n");
-            String[] columns = headerLine.split(delimiter);
-            System.out.println("Columns:");
-            for (String column : columns) {
-                System.out.print(column + " ");
+            String[] col = headerLine.split(deli);
+            System.out.println("Columns : ");
+            for (String c : col) 
+            {
+                System.out.print(c + "\t");
             }
-            System.out.println("\nTotal columns: " + columns.length);
+            System.out.println("\nTotal columns: " + col.length);
             System.out.println("\nFirst 5 Records:\n");
 
-            int count = 0;
+            int cnt = 0;
             while ((line = br.readLine()) != null) {
-                String[] data = line.split(delimiter);
+                String[] data = line.split(deli);
                 System.out.println(String.join(" ", data));
-                count++;
-                if (count == 5) break;
+                cnt++;
+                if (cnt==5)
+                break;
             }
-
-            
             while (br.readLine() != null) {
-                count++;
+                cnt+=1;
             }
 
-            System.out.println("\nTotal Records (excluding header): " + count);
+            System.out.println("\nTotal Records (excluding header): " + cnt);
 
         } catch (IOException e) {
             e.printStackTrace();
